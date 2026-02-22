@@ -1,4 +1,4 @@
-module orbit-qr
+module k2-qr
 
 go 1.22.1
 
