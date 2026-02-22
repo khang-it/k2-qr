@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Orbit QR – Advanced Settings</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-50 h-screen flex flex-col">
+
+        <!-- Header -->
+        <header class="bg-white shadow p-4 flex justify-between items-center">
+            <h1
+                class="text-xl font-bold text-gray-700 cursor-pointer hover:underline"
+                id="backToHome">
+                ⚙️ Advanced Settings
+            </h1>
+            <input id="searchAdvanced" type="text" placeholder="Tìm kiếm..."
+                class="border rounded px-3 py-1 w-64">
+        </header>
+
+        <div class="flex flex-1 overflow-hidden">
+            <!-- Sidebar -->
+            <aside class="w-64 bg-white border-r overflow-y-auto">
+                <nav class="flex flex-col p-4 space-y-2">
+                    <button
+                        class="w-full text-left px-3 py-2 hover:bg-gray-100 rounded"
+                        data-section="general">Cấu hình chung</button>
+                    <button
+                        class="w-full text-left px-3 py-2 hover:bg-gray-100 rounded"
+                        data-section="bank">Ngân hàng</button>
+                    <button
+                        class="w-full text-left px-3 py-2 hover:bg-gray-100 rounded"
+                        data-section="qr">QR Code</button>
+                    <button
+                        class="w-full text-left px-3 py-2 hover:bg-gray-100 rounded"
+                        data-section="avatar">Avatar</button>
+                </nav>
+            </aside>
+
+            <!-- Content -->
+            <main class="flex-1 overflow-y-auto p-6">
+                <div id="section-general" class="section space-y-4">
+                    <h2 class="text-lg font-semibold">Cấu hình chung</h2>
+                    <div>
+                        <label
+                            class="block text-sm font-medium text-gray-600">Tên
+                            ứng dụng</label>
+                        <input id="appName" type="text"
+                            class="mt-1 border rounded px-3 py-2 w-full"
+                            placeholder="Orbit QR">
+                    </div>
+                    <div>
+                        <label
+                            class="block text-sm font-medium text-gray-600">Màu
+                            chủ đạo</label>
+                        <input id="themeColor" type="color"
+                            class="mt-1 w-16 h-10 border rounded">
+                    </div>
+                    <button id="saveAdvanced"
+                        class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">💾
+                        Lưu</button>
+                </div>
+
+                <div id="section-bank" class="section hidden">
+                    <h2 class="text-lg font-semibold">Cấu hình Ngân hàng</h2>
+                    <p class="text-gray-500">Chỗ này sẽ load cấu hình ngân hàng
+                        hoặc API…</p>
+                </div>
+
+                <div id="section-qr" class="section hidden">
+                    <h2 class="text-lg font-semibold">Cấu hình QR</h2>
+                    <p class="text-gray-500">Chỗ này cấu hình QR code size,
+                        color…</p>
+                </div>
+
+                <div id="section-avatar" class="section hidden">
+                    <h2 class="text-lg font-semibold">Cấu hình Avatar</h2>
+                    <p class="text-gray-500">Chỗ này quản lý avatar…</p>
+                </div>
+            </main>
+        </div>
+
+        <script src="./scripts/app.js"></script>
+        <script>
+    // === Script điều hướng trong advance.html ===
+    document.querySelectorAll('aside nav button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const sectionId = 'section-' + btn.dataset.section;
+        document.querySelectorAll('.section').forEach(sec => sec.classList.add('hidden'));
+        document.getElementById(sectionId).classList.remove('hidden');
+      });
+    });
+
+    // Load localStorage khi mở trang
+    document.addEventListener('DOMContentLoaded', () => {
+      // ví dụ: load lại 2 field trong advanced
+      const appName = localStorage.getItem('appName') || '';
+      const themeColor = localStorage.getItem('themeColor') || '#0ea5e9';
+      document.getElementById('appName').value = appName;
+      document.getElementById('themeColor').value = themeColor;
+    });
+
+    // Lưu lại khi click save
+    document.getElementById('saveAdvanced').addEventListener('click', () => {
+      localStorage.setItem('appName', document.getElementById('appName').value);
+      localStorage.setItem('themeColor', document.getElementById('themeColor').value);
+      alert('Đã lưu cấu hình nâng cao!');
+    });
+
+    // Tìm kiếm
+    document.getElementById('searchAdvanced').addEventListener('input', e => {
+      const kw = e.target.value.toLowerCase();
+      document.querySelectorAll('aside nav button').forEach(btn => {
+        btn.style.display = btn.textContent.toLowerCase().includes(kw) ? 'block' : 'none';
+      });
+    });
+
+    // Quay về trang chủ khi click vào tiêu đề
+    document.getElementById('backToHome').addEventListener('click', () => {
+    if (confirm('Bạn có muốn quay về trang chủ không?')) {
+      window.location.href = '/index.html';
+    }
+  });
+  </script>
+    </body>
+</html>
