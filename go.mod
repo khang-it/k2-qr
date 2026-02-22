@@ -1,6 +1,6 @@
 module orbit-qr
 
-go 1.25.2
+go 1.22.1
 
 require (
 	github.com/disintegration/imaging v1.6.2
