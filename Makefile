@@ -32,7 +32,11 @@ start:
 	@echo "🚀 Starting Go server (dev)..."
 	$(GO) run main.go
 
-dev: start
+dev:
+#	@echo "🔥 Hot reload with reflex..."
+# 	reflex -r '\.go$$' -- sh -c 'go run main.go'
+	@echo "🔥 Hot Reload Dev Mode..."
+	air -c .air.toml
 
 run:
 	@echo "▶️ Running compiled binary..."

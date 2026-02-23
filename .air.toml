@@ -1,0 +1,16 @@
+# .air.toml 
+root = "."
+tmp_dir = "tmp"
+
+[build]
+cmd = "go build -o tmp/app ."
+bin = "tmp/app"
+full_bin = "tmp/app"
+delay = 300
+
+include_ext = ["go", "mod", "sum"]
+
+exclude_dir = ["tmp", ".git", "node_modules"]
+
+[watcher]
+paths = ["."]
