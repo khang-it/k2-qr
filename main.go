@@ -321,8 +321,8 @@ func main() {
 	mux.HandleFunc("/orbit-qr", qrImage)
 
 	// Wrap với security middleware
-	//handler := securityHeaders(mux)
-	handler := strictDomainGuard(mux)
+	handler := securityHeaders(mux)
+	//handler := strictDomainGuard(mux)
 
 	log.Println("Secure Server running on port:", port)
 	log.Fatal(http.ListenAndServe(":"+port, handler))
